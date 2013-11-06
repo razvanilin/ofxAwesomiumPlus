@@ -7,7 +7,7 @@
 1. Install Awesomium
 1. Try out the examples to make sure it works!
 
-## Using the Porject Generator on OSX
+## Using the Project Generator on OSX
 It kind of sucks that there are so many steps required to add Awesomium to oF, but that's just the way it is right now.  Essentially all you are doing is linking against the Awesomium framework and adding it to the application bundle under Executables. It's the same process covered in [Setting Up on Mac OSX](http://wiki.awesomium.com/getting-started/setting-up-on-macosx.html). If you don't know what that means, just follow the steps below.
 
 1. Generate a project using the Project generator.  Make sure to check off ofxAwesomium in the addons list
