@@ -13,9 +13,13 @@ It kind of sucks that there are so many steps required to add Awesomium to oF, b
 1. Generate a project using the Project generator.  Make sure to check off ofxAwesomium in the addons list
 1. In the Finder, navigate to /Library/Frameworks (this is where the Awesomium installer put some stuff)
 1. Locate Awesomium.framework in /Library/Frameworks
-1. Drag the entire Awesomium.framework into XCode and drop it into the 
+![Locate Framework](http://i.imgur.com/nzLjaQb.png)
+1. Drag the entire Awesomium.framework into XCode and drop it into the Project Navigator
+![Drag and drop](http://i.imgur.com/BCGRM2d.png)
 1. In the dialog that appears, click "Finish"
+![Finish](http://i.imgur.com/g08S6uB.png)
 1. In the Project Navigator, click on the blue icon at the top.  Then click on "Build Phases"
+![Build Phases](http://i.imgur.com/tZxd5Ql.png)
 1. Drag "Awesomium.framework" from the Project Navigator and drop it on the section called "Link Binary With Libraries"
 1. In the Menu bar, go to Editor > Add Build Phase > Add Copy Files Build Phase
 1. In the resulting "Copy Files" build phase, change "Destination" to "Executables", and drag Awesomium.framework (again) from the Project Navigator to where it says "Add Files Here"
