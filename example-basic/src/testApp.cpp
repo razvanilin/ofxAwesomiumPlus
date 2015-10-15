@@ -4,14 +4,14 @@
 void testApp::setup(){
 	browser.setup(800, 600);
 	browser.loadURL("http://www.google.com");
-	
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofxAwesomium::updateCore();
 	browser.update();
-	
+
 	ofSetWindowTitle(browser.getTitle());
 }
 
@@ -57,7 +57,7 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
-
+	browser.windowResized(w, h);
 }
 
 //--------------------------------------------------------------
@@ -66,6 +66,6 @@ void testApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::dragEvent(ofDragInfo dragInfo){
 
 }
