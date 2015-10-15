@@ -27,6 +27,7 @@ void ofxAwesomium::setup(int width, int height) {
 void ofxAwesomium::loadURL(string url) {
 	web_view->LoadURL(WebURL(WSLit(url.c_str())));
     web_view->Focus();
+	
 }
 
 // ----------------------------------------------------------------
@@ -81,37 +82,95 @@ bool ofxAwesomium::getIsLoading(){
 // ----------------------------------------------------------------
 void ofxAwesomium::keyPressed(int key) {
 	web_view->Focus();
-    
+
+	// get the correct virtual key codes
+	int vk = key;
+	switch (key)
+	{
+	case OF_KEY_LEFT:
+		vk = VK_LEFT;
+		break;
+	case OF_KEY_RIGHT:
+		vk = VK_RIGHT;
+		break;
+	case OF_KEY_UP:
+		vk = VK_UP;
+		break;
+	case OF_KEY_DOWN:
+		vk = VK_DOWN;
+		break;
+	case OF_KEY_DEL:
+		vk = VK_DELETE;
+		break;
+	// this is the 'dot' key. For some reason I had to hard-code this in order to make it work
+	case 46:
+		vk = VK_DECIMAL;
+		break;
+	default:
+		break;
+	}
+
     Awesomium::WebKeyboardEvent keyDown;
     keyDown.type = Awesomium::WebKeyboardEvent::kTypeKeyDown;
-    keyDown.virtual_key_code = (char)key;
+    keyDown.virtual_key_code = (char)vk;
     keyDown.native_key_code = (char)key;
     keyDown.text[0] = (char)key;
     keyDown.unmodified_text[0] = (char)key;
-    keyDown.modifiers = 0;
-    // keyDown.modifiers  ???
+    keyDown.modifiers = (char)OF_KEY_MODIFIER;
+	
     web_view->InjectKeyboardEvent( keyDown );
     
-    Awesomium::WebKeyboardEvent typeChar;
-    typeChar.type = Awesomium::WebKeyboardEvent::kTypeChar;
-    typeChar.virtual_key_code =  (char)key;
-    typeChar.native_key_code =  (char)key;
-    typeChar.text[0] =  (char)key;
-    typeChar.unmodified_text[0] =  (char)key;
-    web_view->InjectKeyboardEvent( typeChar );
+	Awesomium::WebKeyboardEvent typeChar;
+	typeChar.type = Awesomium::WebKeyboardEvent::kTypeChar;
+	typeChar.virtual_key_code = (char)vk;
+	typeChar.native_key_code = (char)key;
+	typeChar.text[0] = (char)key;
+	typeChar.unmodified_text[0] = (char)key;
+	typeChar.modifiers = (char)OF_KEY_MODIFIER;
+	web_view->InjectKeyboardEvent(typeChar);
+
 }
 
 // ----------------------------------------------------------------
 void ofxAwesomium::keyReleased(int key) {
 	web_view->Focus();
-    
+
+	int vk = key;
+	
+	// get the correct virtual key codes
+	switch (key)
+	{
+	case OF_KEY_LEFT:
+		vk = VK_LEFT;
+		break;
+	case OF_KEY_RIGHT:
+		vk = VK_RIGHT;
+		break;
+	case OF_KEY_UP:
+		vk = VK_UP;
+		break;
+	case OF_KEY_DOWN:
+		vk = VK_DOWN;
+		break;
+	case OF_KEY_DEL:
+		vk = VK_DELETE;
+		break;
+	// this is the 'dot' key. For some reason I had to hard-code this in order to make it work
+	case 46:
+		vk = VK_DECIMAL;
+		break;
+	default:
+		break;
+	}
+
     Awesomium::WebKeyboardEvent evt;
     evt.type = Awesomium::WebKeyboardEvent::kTypeKeyUp;
-    evt.virtual_key_code = (char)key;
+
+    evt.virtual_key_code = (char)vk;
     evt.native_key_code = (char)key;
     evt.text[0] = (char)key;
     evt.unmodified_text[0] = (char)key;
-    evt.modifiers = 0;
+    evt.modifiers = (char)OF_KEY_MODIFIER;
     web_view->InjectKeyboardEvent( evt );
 }
 
@@ -145,9 +204,11 @@ void ofxAwesomium::mouseReleased(int x, int y, int button){
         web_view->InjectMouseUp( Awesomium::kMouseButton_Right );
 }
 
-
-
-
+//--------------------------------------------------------------
+void ofxAwesomium::windowResized(int w, int h) {
+	frame.resize(w, h);
+	web_view->Resize(w, h);
+}
 
 
 // ----------------------------------------------------------------

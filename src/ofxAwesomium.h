@@ -15,6 +15,7 @@
 using namespace Awesomium;
 
 class ofxAwesomium : public ofBaseDraws {
+
 public:
 
 	//ofxAwesomium();
@@ -25,14 +26,14 @@ public:
 	string getTitle();
 	bool getIsLoading();
 	JSValue doJavaScript(string js);
-	
+
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
-	
+	void windowResized(int w, int h);
 	
 	// begin ofBaseDraws
 	void draw(float x, float y) const;
@@ -60,7 +61,6 @@ protected:
 	
 	WebView* web_view;
 	BitmapSurface* surface;
-	
 
 	static bool bCoreInited;
 	static WebCore* core;
