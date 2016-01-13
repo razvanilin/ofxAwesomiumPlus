@@ -2,23 +2,51 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    // 'ofxAwesomiumPlus' string passed below is important for binding javascript methods
+    // check index.html to see how it's used
     _browser.setup(ofGetWidth(), ofGetHeight(), "ofxAwesomiumPlus");
-    _browser.loadURL("http://www.google.com");
-
+    _browser.loadURL("file:///" + ofFilePath::getAbsolutePath("index.html"));
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     _browser.update();
-
+    
+    // get the state from the browser
+    // the state is set from the 'onclick' event on the buttons in index.html
+    if (_browser.getState().length() > 0)
+        _state = _browser.getState();
+    
+    if(_state == "OPEN_CAMERA") {
+        if (!_vidGrabber.isInitialized()) {
+            _vidGrabber.setup(640, 360);
+        }
+        _vidGrabber.update();
+    }
+    
+    if(_state == "DRAW_STRING") {
+        _vidGrabber.close();
+    }
+    
     ofSetWindowTitle(_browser.getTitle());
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    
     ofSetColor(255);
     _browser.draw(0, 0);
+    
+    if (_state == "OPEN_CAMERA") {
+        ofSetColor(255);
+        _vidGrabber.draw(200, 200, 640, 360);
+    }
+    
+    if (_state == "DRAW_STRING") {
+        ofSetColor(ofColor::red);
+        ofDrawBitmapString("OpenFrameworks", 100, 200);
+    }
 }
 
 //--------------------------------------------------------------
@@ -53,7 +81,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
-
+    
 }
 
 //--------------------------------------------------------------
@@ -77,6 +105,6 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){
+void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }

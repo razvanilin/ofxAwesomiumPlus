@@ -1,10 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxAwesomium.h"
-#include "ofxOpenCv.h"
+#include "ofxAwesomiumPlus.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
@@ -17,13 +16,15 @@ class testApp : public ofBaseApp{
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
+		void mouseEntered(int x, int y);
+		void mouseExited(int x, int y);
+        void mouseScrolled(float x, float y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
-		ofxAwesomium browser;
-		ofxCvHaarFinder finder;
-		ofImage moustache;
-		ofImage grayFrame;
-		ofPoint scale;
+    
+protected:
+    ofxAwesomiumPlus _browser;
+    string _state;
+    ofVideoGrabber _vidGrabber;
 };

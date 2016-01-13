@@ -29,7 +29,6 @@ void ofxAwesomiumPlus::setup(int width, int height, string appName) {
 void ofxAwesomiumPlus::loadURL(string url) {
     web_view->LoadURL(WebURL(WSLit(url.c_str())));
     web_view->Focus();
-    web_view->SetTransparent(true);
 }
 
 // ----------------------------------------------------------------
@@ -250,7 +249,7 @@ void ofxAwesomiumPlus::setScrollSpeed(int modifier) {
 
 //--------------------------------------------------------------
 void ofxAwesomiumPlus::setTransparent(bool flag) {
-    web_view->SetTransparent(flag);
+    web_view->SetTransparent(true);
 }
 
 //--------------------------------------------------------------
