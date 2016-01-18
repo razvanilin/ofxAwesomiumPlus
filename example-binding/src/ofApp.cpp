@@ -26,7 +26,8 @@ void ofApp::update(){
     }
     
     if(_state == "DRAW_STRING") {
-        _vidGrabber.close();
+		if (_vidGrabber.isInitialized())
+			_vidGrabber.close();
     }
     
     ofSetWindowTitle(_browser.getTitle());

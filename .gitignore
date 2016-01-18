@@ -24,3 +24,20 @@ xcuserdata
 *.app/
 
 .DS_Store
+
+*.sdf
+*.opensdf
+*.suo
+*.pbd
+*.ilk
+*.aps
+Thumbs.db
+Desktop.ini
+
+example-basic/bin/*
+!example-basic/bin/data
+example-basic/bin/data/Logs
+
+example-binding/bin/*
+!example-binding/bin/data
+example-binding/bin/data/Logs
