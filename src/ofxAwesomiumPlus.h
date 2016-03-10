@@ -57,6 +57,8 @@ public:
     string getState();
     void setScrollSpeed(int modifier);
     void setTransparent(bool flag);
+	void setAutomaticResize(bool flag);
+	bool isAutomaticResize();
     
     // begin ofBaseDraws
     void draw(float x, float y) const;
@@ -127,4 +129,6 @@ protected:
     
     string _state;
     int _scrollModifier;
+
+	bool _resizable;
 };

@@ -6,7 +6,6 @@ void ofApp::setup(){
     // check index.html to see how it's used
     _browser.setup(ofGetWidth(), ofGetHeight(), "ofxAwesomiumPlus");
     _browser.loadURL("file:///" + ofFilePath::getAbsolutePath("index.html"));
-    
 }
 
 //--------------------------------------------------------------
@@ -46,7 +45,7 @@ void ofApp::draw(){
     
     if (_state == "DRAW_STRING") {
         ofSetColor(ofColor::red);
-        ofDrawBitmapString("OpenFrameworks", 100, 200);
+        ofDrawBitmapString("Press 'f' to toggle the automatic browser resize.", 100, 200);
     }
 }
 
@@ -58,6 +57,11 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     _browser.keyReleased(key);
+
+	// toggle automatic resize for the awesomium browser
+	if (key == 'f') {
+		_browser.setAutomaticResize(!_browser.isAutomaticResize());
+	}
 }
 
 //--------------------------------------------------------------
@@ -97,6 +101,7 @@ void ofApp::mouseScrolled(float x, float y) {
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
+	// Might crash on windows - substract a few pixels from width and height to fix it (just in case)
     _browser.windowResized(w, h);
 }
 

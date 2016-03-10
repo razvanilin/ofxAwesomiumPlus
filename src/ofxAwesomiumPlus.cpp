@@ -23,6 +23,9 @@ void ofxAwesomiumPlus::setup(int width, int height, string appName) {
     
     frame.allocate(width, height, OF_IMAGE_COLOR_ALPHA);
     //texture.allocate(width, height, GL_RGBA);
+
+	// the browser is resizable by default
+	_resizable = true;
 }
 
 // ----------------------------------------------------------------
@@ -231,8 +234,10 @@ void ofxAwesomiumPlus::mouseScrolled(float x, float y) {
 
 //--------------------------------------------------------------
 void ofxAwesomiumPlus::windowResized(int w, int h) {
-    frame.resize(w, h);
-    web_view->Resize(frame.getWidth(), frame.getHeight());
+	if (_resizable) {
+		frame.resize(w, h);
+		web_view->Resize(frame.getWidth(), frame.getHeight());
+	}
     
     // Might crash on windows - substract a few pixels from width and height to fix it (just in case)
 }
@@ -250,6 +255,16 @@ void ofxAwesomiumPlus::setScrollSpeed(int modifier) {
 //--------------------------------------------------------------
 void ofxAwesomiumPlus::setTransparent(bool flag) {
     web_view->SetTransparent(true);
+}
+
+//--------------------------------------------------------------
+void ofxAwesomiumPlus::setAutomaticResize(bool flag) {
+	_resizable = flag;
+}
+
+//--------------------------------------------------------------
+bool ofxAwesomiumPlus::isAutomaticResize() {
+	return _resizable;
 }
 
 //--------------------------------------------------------------
