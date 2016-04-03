@@ -85,6 +85,11 @@ bool ofxAwesomiumPlus::getIsLoading() {
 }
 
 // ----------------------------------------------------------------
+ofImage ofxAwesomiumPlus::getFrame() {
+	return frame;
+}
+
+// ----------------------------------------------------------------
 void ofxAwesomiumPlus::keyPressed(int key) {
     web_view->Focus();
     int text = key;
