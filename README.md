@@ -33,4 +33,8 @@
 There are two examples included in the repository:
 
 * **example-basic** - basic OF application loading google in a window
-* **example-binding** - using javascript functions to add functionality to the OF application (open camera and draw a string using javascript and HTML buttons)
+* **example-binding** - using javascript functions to add functionality to the OF application (open camera and draw a string using javascript and HTML buttons) 
+
+# Troubleshoot
+
+If you are getting a DWORD error make sure you include the `ofxAwesomiumPlus.h` after the other headers. Check [this issue](https://github.com/razvanilin/ofxAwesomiumPlus/issues/3#issuecomment-223098358) for more details.
