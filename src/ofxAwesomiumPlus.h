@@ -40,6 +40,7 @@ public:
     ~ofxAwesomiumPlus();
     void setup(int width, int height, string appName);
     void loadURL(string url);
+    void reload(bool ignore_cache);
     bool update();
     string getTitle();
     bool getIsLoading();

@@ -35,6 +35,11 @@ void ofxAwesomiumPlus::loadURL(string url) {
 }
 
 // ----------------------------------------------------------------
+void ofxAwesomiumPlus::reload(bool ignore_cache) {
+    web_view->Reload(ignore_cache);
+}
+
+// ----------------------------------------------------------------
 JSValue ofxAwesomiumPlus::doJavaScript(string js) {
     return web_view->ExecuteJavascriptWithResult(WSLit(js.c_str()), WSLit(""));
 }
