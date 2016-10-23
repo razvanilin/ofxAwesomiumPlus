@@ -318,6 +318,25 @@ void ofxAwesomiumPlus::Bind(Awesomium::JSObject& object,
     bound_methods_[key] = callback;
 }
 
+void ofxAwesomiumPlus::bind(const string& name,
+                            JSDelegate callback) {
+    WebString _name = WSLit(name.c_str());
+    JSValue result = web_view->CreateGlobalJavascriptObject(WSLit(_appName.c_str()));
+    if (result.IsObject()) {
+        // Bind our custom method to it.
+        JSObject& object = result.ToObject();
+        
+        // We can't bind methods to local JSObjects
+        if (object.type() == Awesomium::kJSObjectType_Local)
+            return;
+        
+        object.SetCustomMethod(_name, false);
+        
+        ObjectMethodKey key(object.remote_id(), _name);
+        bound_methods_[key] = callback;
+    }
+}
+
 void ofxAwesomiumPlus::BindWithRetval(Awesomium::JSObject& object,
                                  const Awesomium::WebString& name,
                                  JSDelegateWithRetval callback) {
