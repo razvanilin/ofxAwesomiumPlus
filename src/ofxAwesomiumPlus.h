@@ -9,6 +9,7 @@
 #include <Awesomium/WebCore.h>
 #include <Awesomium/BitmapSurface.h>
 #include <Awesomium/STLHelpers.h>
+#include <Awesomium/WebViewListener.h>
 #include <map>
 #include "js_delegate.h"
 
@@ -32,13 +33,49 @@ public:
         virtual void OnShutdown() = 0;
     };
     
+    class MyViewListender : public WebViewListener::View {
+        
+        void OnChangeTitle(Awesomium::WebView* caller,
+                           const Awesomium::WebString& title) {};
+        
+        void OnChangeAddressBar(Awesomium::WebView* caller,
+                                const Awesomium::WebURL& url) {}
+        
+        void OnChangeTooltip(Awesomium::WebView* caller,
+                             const Awesomium::WebString& tooltip) {};
+        
+        void OnChangeTargetURL(Awesomium::WebView* caller,
+                               const Awesomium::WebURL& url) {};
+        
+        void OnChangeCursor(Awesomium::WebView* caller,
+                            Awesomium::Cursor cursor) {};
+        
+        void OnChangeFocus(Awesomium::WebView* caller,
+                           Awesomium::FocusedElementType focused_type) {};
+        
+        void OnShowCreatedWebView(Awesomium::WebView* caller,
+                                  Awesomium::WebView* new_view,
+                                  const Awesomium::WebURL& opener_url,
+                                  const Awesomium::WebURL& target_url,
+                                  const Awesomium::Rect& initial_pos,
+                                  bool is_popup){};
+        
+        void OnAddConsoleMessage(Awesomium::WebView* caller,
+                                 const Awesomium::WebString& message,
+                                 int line_number,
+                                 const Awesomium::WebString& source) {
+            
+            cout << "Awesomium Console: " << source << ":" << line_number << ": " << message << endl;
+        }
+    };
+    
     typedef std::pair<int, Awesomium::WebString> ObjectMethodKey;
     typedef std::map<ObjectMethodKey, JSDelegate> BoundMethodMap;
     typedef std::map<ObjectMethodKey, JSDelegateWithRetval> BoundMethodWithRetvalMap;
     
     //ofxAwesomiumPlus();
     ~ofxAwesomiumPlus();
-    void setup(int width, int height, string appName);
+    void setup(int width, int height, string appName, bool debug=false);
     void loadURL(string url);
     bool update();
     string getTitle();
@@ -79,7 +116,7 @@ public:
     
     ofImage frame;
     
-    static void initCore(string logsPath, string sessionPath);
+    static void initCore(string logsPath, string sessionPath, bool debug=false);
     static void updateCore();
     static void shutdownCore();
     

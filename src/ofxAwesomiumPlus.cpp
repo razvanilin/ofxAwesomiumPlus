@@ -6,15 +6,20 @@ ofxAwesomiumPlus::~ofxAwesomiumPlus() {
 }
 
 // ----------------------------------------------------------------
-void ofxAwesomiumPlus::setup(int width, int height, string appName) {
+void ofxAwesomiumPlus::setup(int width, int height, string appName, bool debug) {
     
     if (!bCoreInited) {
-        initCore(ofToDataPath("Logs"), ofToDataPath("SessionData"));
+        initCore(ofToDataPath("Logs"), ofToDataPath("SessionData"), debug);
     }
     
     web_view = core->CreateWebView(width, height, session, WebViewType::kWebViewType_Offscreen);
     
     _appName = appName;
+    
+    if (debug) {    // Enable forwarding web console messages to IDE console
+        MyViewListender* my_view_listener = new MyViewListender();
+        web_view->set_view_listener(my_view_listener);
+    }
     
     _scrollModifier = 3;
     
@@ -364,11 +369,14 @@ WebCore* ofxAwesomiumPlus::core;
 WebSession* ofxAwesomiumPlus::session;
 
 // ----------------------------------------------------------------
-void ofxAwesomiumPlus::initCore(string logsPath, string sessionPath) {
+void ofxAwesomiumPlus::initCore(string logsPath, string sessionPath, bool debug) {
     WebConfig config;
     config.log_path = WSLit(logsPath.c_str());
     config.log_level = kLogLevel_Verbose; //kLogLevel_Normal;
-    
+    if (debug) {    // Enable inspector; don't forget to put 'inspector.pak' next to your 'Awesomium.framework'
+        config.remote_debugging_host = Awesomium::WSLit("127.0.0.1");
+        config.remote_debugging_port = 42424;
+    }
     core = WebCore::Initialize(config);
     
     WebPreferences prefs;
