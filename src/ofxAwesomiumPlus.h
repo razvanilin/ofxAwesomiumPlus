@@ -126,6 +126,9 @@ public:
               const Awesomium::WebString& name,
               JSDelegate callback);
     
+    void bind(const string& name,
+              JSDelegate callback);
+    
     void BindWithRetval(Awesomium::JSObject& object,
                         const Awesomium::WebString& name,
                         JSDelegateWithRetval callback);
