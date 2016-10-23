@@ -4,7 +4,7 @@
 void ofApp::setup(){
     // 'ofxAwesomiumPlus' string passed below is important for binding javascript methods
     // check index.html to see how it's used
-    _browser.setup(ofGetWidth(), ofGetHeight(), "ofxAwesomiumPlus");
+    _browser.setup(ofGetWidth(), ofGetHeight(), "ofxAwesomiumPlus", true);
     _browser.loadURL("file:///" + ofFilePath::getAbsolutePath("index.html"));
 }
 
@@ -45,7 +45,7 @@ void ofApp::draw(){
     
     if (_state == "DRAW_STRING") {
         ofSetColor(ofColor::red);
-        ofDrawBitmapString("Press 'f' to toggle the automatic browser resize.", 100, 200);
+        ofDrawBitmapString("Press 'f' to toggle the automatic browser resize and 'r' to reload the HTML.", 100, 200);
     }
 }
 
@@ -61,7 +61,9 @@ void ofApp::keyReleased(int key){
 	// toggle automatic resize for the awesomium browser
 	if (key == 'f') {
 		_browser.setAutomaticResize(!_browser.isAutomaticResize());
-	}
+    } else if (key == 'r') {
+        _browser.reload(true);
+    }
 }
 
 //--------------------------------------------------------------
