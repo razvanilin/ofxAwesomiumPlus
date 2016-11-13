@@ -95,7 +95,7 @@ bool ofxAwesomiumPlus::getIsLoading() {
 }
 
 // ----------------------------------------------------------------
-ofImage ofxAwesomiumPlus::getFrame() {
+ofImage& ofxAwesomiumPlus::getFrame() {
 	return frame;
 }
 
