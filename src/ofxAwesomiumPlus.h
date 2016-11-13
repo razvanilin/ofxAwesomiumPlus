@@ -89,7 +89,7 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     void mouseScrolled(float x, float y);
-	ofImage getFrame();
+	ofImage& getFrame();
     
     void windowResized(int w, int h);
     
