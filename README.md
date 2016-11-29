@@ -14,7 +14,7 @@
 - Window resizing
 - Transparency control
 
-**The code is written for OpenFrameworks v0.9.0 so you might need to modify the code slightly if you're using another version**
+**The code is written for OpenFrameworks v0.9.8 so you might need to modify the code slightly if you're using another version**
 
 # Installation
 * [Download Awesomium](http://www.awesomium.com/download/)  Currently using v1.7.5
