@@ -53,9 +53,19 @@ JSValue ofxAwesomiumPlus::doJavaScript(string js) {
 bool ofxAwesomiumPlus::update() {
     updateCore();
     surface = (BitmapSurface*)web_view->surface();
-    
-    if (frame.getPixels().size() > 0 && surface && surface->buffer() && surface->is_dirty()) {
-        surface->CopyTo(frame.getPixels().getData(), frame.getWidth() * 4, 4, true, false);
+
+	if (!surface)
+		return false;
+
+	int width = surface->width ();
+	int height = surface->height ();
+
+    if (min (width, height) > 0 && surface->buffer() && surface->is_dirty()) {
+	//The frame size is adjusted based on the asynchronous adjustment of the surface one, so no exception is throwed when the window is downsized
+	if (frame.getWidth () != width || frame.getHeight () != height)
+		frame.resize (width, height);
+
+	surface->CopyTo(frame.getPixels().getData(), width * 4, 4, true, false);
         frame.update();
         return true;
     }
@@ -249,12 +259,8 @@ void ofxAwesomiumPlus::mouseScrolled(float x, float y) {
 
 //--------------------------------------------------------------
 void ofxAwesomiumPlus::windowResized(int w, int h) {
-	if (_resizable) {
-		frame.resize(w, h);
-		web_view->Resize(frame.getWidth(), frame.getHeight());
-	}
-    
-    // Might crash on windows - substract a few pixels from width and height to fix it (just in case)
+	if (_resizable) 
+		web_view->Resize(w, h);
 }
 
 //--------------------------------------------------------------
